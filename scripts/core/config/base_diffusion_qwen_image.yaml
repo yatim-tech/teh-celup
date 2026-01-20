@@ -7,8 +7,8 @@ config:
     device: cuda
     network:
       type: lora
-      linear: 32
-      linear_alpha: 32
+      linear: 128
+      linear_alpha: 128
     save:
       dtype: bf16
       save_every: 250
@@ -33,6 +33,8 @@ config:
       cache_text_embeddings: true
       train_unet: true
       train_text_encoder: false
+      optimizer_params:
+        weight_decay: 1e-5
       ema_config:
         use_ema: false
         ema_decay: 0.99
@@ -40,7 +42,7 @@ config:
       name_or_path: /cache/models
       arch: qwen_image
       quantize: true
-      qtype: uint3|/cache/hf_cache/qwen_image_torchao_uint3.safetensors
+      qtype: float8
       quantize_te: true
       qtype_te: qfloat8
       low_vram: true
