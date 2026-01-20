@@ -13,20 +13,32 @@ config:
       conv_alpha: 16
     save:
       dtype: bf16
-      save_every: 250
+      save_every: 500
       max_step_saves_to_keep: 4
       save_format: diffusers
     datasets:
     - folder_path: /dataset/images
       caption_ext: txt
+      caption_dropout_rate: 0.05
       cache_latents_to_disk: true
       resolution: [512, 768, 1024]
       is_reg: false
     train:
-      batch_size: 1
-      steps: 2000
+      batch_size: 4
+      steps: 2500
+      # gradient_accumulation_steps: 1
       lr: 0.0001
       optimizer: adamw8bit
+      optimizer_args:
+        betas: [0.9, 0.999]
+        weight_decay: 0.0001
+        eps: 1e-08
+      lr_scheduler: cosine
+      lr_warmup_steps: 25
+      lr_scheduler_args:
+        num_cycles: 1
+        power: 1.0
+      loss_type: l2
       gradient_checkpointing: true
       noise_scheduler: flowmatch
       timestep_type: weighted
@@ -34,6 +46,21 @@ config:
       ema_config:
         use_ema: true
         ema_decay: 0.99
+    # --- FITUR BARU: SAMPLE (PREVIEW) ---
+    sample:
+      sampler: flowmatch
+      sample_every: 500
+      width: 1024
+      height: 1024
+      prompts:
+        - "learning a new style"
+        - "scenery of a futuristic city, high quality"
+      neg: ""
+      seed: 42
+      walk_seed: true
+      guidance_scale: 4
+      sample_steps: 6
+    # ------------------------------------
     model:
       name_or_path: /cache/models
       arch: zimage:turbo
