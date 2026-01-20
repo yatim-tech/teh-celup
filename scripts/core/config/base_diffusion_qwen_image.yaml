@@ -11,7 +11,7 @@ config:
       linear_alpha: 128
     save:
       dtype: bf16
-      save_every: 250
+      save_every: 200
       max_step_saves_to_keep: 4
       save_format: diffusers
     datasets:
@@ -22,7 +22,7 @@ config:
       is_reg: false
     train:
       batch_size: 1
-      steps: 3000
+      steps: 1000
       lr: 0.0001
       optimizer: adamw8bit
       gradient_checkpointing: true
@@ -34,7 +34,7 @@ config:
       train_unet: true
       train_text_encoder: false
       optimizer_params:
-        weight_decay: 1e-5
+        weight_decay: 1e-4
       ema_config:
         use_ema: false
         ema_decay: 0.99
