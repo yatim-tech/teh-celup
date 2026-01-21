@@ -7,11 +7,11 @@ config:
     device: cuda
     network:
       type: lora
-      linear: 128
-      linear_alpha: 128
+      linear: 64
+      linear_alpha: 64
     save:
       dtype: bf16
-      save_every: 200
+      save_every: 250
       max_step_saves_to_keep: 4
       save_format: diffusers
     datasets:
@@ -22,7 +22,7 @@ config:
       is_reg: false
     train:
       batch_size: 1
-      steps: 1000
+      steps: 2500
       lr: 0.0001
       optimizer: adamw8bit
       gradient_checkpointing: true
