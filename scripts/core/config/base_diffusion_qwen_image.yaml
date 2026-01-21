@@ -18,11 +18,11 @@ config:
     - folder_path: /dataset/images
       caption_ext: txt
       cache_latents_to_disk: true
-      resolution: [512, 768, 1024]
+      resolution: [256, 512, 768]
       is_reg: false
     train:
       batch_size: 1
-      steps: 2500
+      steps: 1000
       lr: 0.0001
       optimizer: adamw8bit
       gradient_checkpointing: true
